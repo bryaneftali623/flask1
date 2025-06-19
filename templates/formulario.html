@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>Clasificador de Insectos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+
     <script>
         function clasificarInsecto(event) {
             event.preventDefault();
@@ -15,21 +17,22 @@
                 },
                 body: `abdomen=${abdomen}&antena=${antena}`,
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    document.getElementById("resultado").innerText = 'Error: ' + data.error;
-                } else {
-                    document.getElementById("resultado").innerText = 'El insecto es un/a ' + data.categoria;
-                }
-            })
-            .catch(error => {
-                document.getElementById("resultado").innerText = 'Error en la solicitud.';
-                console.error("Error:", error);
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById("resultado").innerText = 'Error: ' + data.error;
+                    } else {
+                        document.getElementById("resultado").innerText = 'El insecto es un/a ' + data.categoria;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("resultado").innerText = 'Error en la solicitud.';
+                    console.error("Error:", error);
+                });
         }
     </script>
 </head>
+
 <body>
     <h1>Clasificador de Insectos</h1>
     <form id="formulario" onsubmit="clasificarInsecto(event)">
@@ -41,4 +44,5 @@
     </form>
     <p id="resultado"></p>
 </body>
+
 </html>
